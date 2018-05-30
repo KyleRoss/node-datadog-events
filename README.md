@@ -4,7 +4,7 @@
 ](https://www.npmjs.com/package/datadog-events) [
 ![npm](https://img.shields.io/npm/dt/datadog-events.svg?style=for-the-badge)
 ](https://www.npmjs.com/package/datadog-events) [![David](https://img.shields.io/david/KyleRoss/node-datadog-events.svg?style=for-the-badge)
-](https://david-dm.org/KyleRoss/node-datadog-events) [![Travis](https://img.shields.io/travis/KyleRoss/datadog-events.svg?style=for-the-badge)](https://travis-ci.org/KyleRoss/node-datadog-events) [![license](https://img.shields.io/github/license/KyleRoss/node-datadog-events.svg?style=for-the-badge)
+](https://david-dm.org/KyleRoss/node-datadog-events) [![Travis](https://img.shields.io/travis/KyleRoss/node-datadog-events/master.svg?style=for-the-badge)](https://travis-ci.org/KyleRoss/node-datadog-events) [![license](https://img.shields.io/github/license/KyleRoss/node-datadog-events.svg?style=for-the-badge)
 ](https://github.com/KyleRoss/node-datadog-events/blob/master/LICENSE)
 
 
