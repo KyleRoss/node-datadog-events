@@ -1,11 +1,6 @@
 # datadog-events
 
-[![npm](https://img.shields.io/npm/v/datadog-events.svg?style=for-the-badge)
-](https://www.npmjs.com/package/datadog-events) [
-![npm](https://img.shields.io/npm/dt/datadog-events.svg?style=for-the-badge)
-](https://www.npmjs.com/package/datadog-events) [![David](https://img.shields.io/david/KyleRoss/node-datadog-events.svg?style=for-the-badge)
-](https://david-dm.org/KyleRoss/node-datadog-events) [![Travis](https://img.shields.io/travis/KyleRoss/node-datadog-events/master.svg?style=for-the-badge)](https://travis-ci.org/KyleRoss/node-datadog-events) [![license](https://img.shields.io/github/license/KyleRoss/node-datadog-events.svg?style=for-the-badge)
-](https://github.com/KyleRoss/node-datadog-events/blob/master/LICENSE)
+[![npm](https://img.shields.io/npm/v/datadog-events.svg?style=for-the-badge)](https://www.npmjs.com/package/datadog-events) [![npm](https://img.shields.io/npm/dt/datadog-events.svg?style=for-the-badge)](https://www.npmjs.com/package/datadog-events) [![David](https://img.shields.io/david/KyleRoss/node-datadog-events.svg?style=for-the-badge)](https://david-dm.org/KyleRoss/node-datadog-events) [![Travis](https://img.shields.io/travis/KyleRoss/node-datadog-events/master.svg?style=for-the-badge)](https://travis-ci.org/KyleRoss/node-datadog-events) [![license](https://img.shields.io/github/license/KyleRoss/node-datadog-events.svg?style=for-the-badge)](https://github.com/KyleRoss/node-datadog-events/blob/master/LICENSE) [![Beerpay](https://img.shields.io/beerpay/KyleRoss/node-datadog-events.svg?style=for-the-badge)](https://beerpay.io/KyleRoss/node-datadog-events)
 
 
 Send events to DataDog **without** DogStatsD or StatsD, using the standard DataDog API. Supports Node 6+.
