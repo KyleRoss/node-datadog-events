@@ -1,0 +1,36 @@
+{
+  "name": "datadog-events",
+  "version": "1.0.0",
+  "description": "Send events to DataDog *without* DogStatsD or StatsD",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test.js -s 500 -t 5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KyleRoss/node-datadog-events.git"
+  },
+  "keywords": [
+    "datadog",
+    "data",
+    "dog",
+    "event",
+    "events",
+    "statsd",
+    "dogstatsd"
+  ],
+  "author": "Kyle Ross <thejavascriptguy@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KyleRoss/node-datadog-events/issues"
+  },
+  "homepage": "https://github.com/KyleRoss/node-datadog-events#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "is-error": "^2.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
