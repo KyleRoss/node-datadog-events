@@ -39,18 +39,19 @@ const ddEvents = new DataDogEvents({ /* options */ });
 #### Global DataDogEvents Options
 The following options are available when creating a new instance of `DataDogEvents` or when calling the default export function.
 
-| Option         | Type          | Required? | Description                                                                                                             | Default                         |
-| -------------- | ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
-| apiKey         | String        | Yes       | Your DataDog API key. This may be populated using environment variable `DATADOG_API_KEY`.                               | `process.env.DATADOG_API_KEY`   |
-| titlePrefix    | String        | No        | Optional text to prefix all event titles with.                                                                          | `null`                          |
-| bodyPrefix     | String        | No        | Optional text to prefix all event bodies with.                                                                          | `null`                          |
-| bodyPostfix    | String        | No        | Optional test to postfix all event bodies with.                                                                         | `null`                          |
-| priority       | String        | No        | Priority for all events. Can be either `normal` or `low`.                                                               | `"normal"`                      |
-| host           | String        | No        | Optional host name to attach to all events.                                                                             | `null`                          |
-| tags           | Array[String] | No        | Optional tags to attach to all events.                                                                                  | `[]`                            |
-| aggregationKey | String        | No        | Optional key that will allow DataDog to aggregate all events under.                                                     | `null`                          |
-| sourceType     | String        | No        | Optional source type name. See [here](https://docs.datadoghq.com/integrations/faq/list-of-api-source-attribute-value/). | `null`                          |
-| markdown       | Boolean       | No        | Format all event bodies as markdown.                                                                                    | `true`                          |
+| Option         | Type          | Required? | Description                                                                                                             | Default                       |
+|----------------|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------|-------------------------------|
+| apiKey         | String        | Yes       | Your DataDog API key. This may be populated using environment variable `DATADOG_API_KEY`.                               | `process.env.DATADOG_API_KEY` |
+| domain         | String        | No        | DataDog domain to use for the API. Useful for switching to the EU version (ex. `datadoghq.eu`).                         | `"datadoghq.com"`             |
+| titlePrefix    | String        | No        | Optional text to prefix all event titles with.                                                                          | `null`                        |
+| bodyPrefix     | String        | No        | Optional text to prefix all event bodies with.                                                                          | `null`                        |
+| bodyPostfix    | String        | No        | Optional test to postfix all event bodies with.                                                                         | `null`                        |
+| priority       | String        | No        | Priority for all events. Can be either `normal` or `low`.                                                               | `"normal"`                    |
+| host           | String        | No        | Optional host name to attach to all events.                                                                             | `null`                        |
+| tags           | Array[String] | No        | Optional tags to attach to all events.                                                                                  | `[]`                          |
+| aggregationKey | String        | No        | Optional key that will allow DataDog to aggregate all events under.                                                     | `null`                        |
+| sourceType     | String        | No        | Optional source type name. See [here](https://docs.datadoghq.com/integrations/faq/list-of-api-source-attribute-value/). | `null`                        |
+| markdown       | Boolean       | No        | Format all event bodies as markdown.                                                                                    | `true`                        |
 
 #### Event Options
 The following options may be provided when sending events with any of the methods documented below. Most of these options will override the global options listed above and are all optional.
@@ -137,8 +138,9 @@ The [global options](#global-datadogevents-options) for the current instance of 
 
 ### Environment Variables
 | Environment Variable | Type   | Option           | Description                                 |
-| -------------------- | ------ | ---------------- | ------------------------------------------- |
+|----------------------|--------|------------------|---------------------------------------------|
 | DATADOG_API_KEY      | String | `options.apiKey` | Sets the API Key for DataDog automatically. |
+| DATADOG_DOMAIN       | String | `options.domain` | Sets the domain for the DataDog API.        |
 
 ## Tests
 Tests run automatically in Travis, although you may run them on your own machine. If you do, you must have your own DataDog account and API key. Make sure you add the `DATADOG_API_KEY` environment variable before running the tests.
