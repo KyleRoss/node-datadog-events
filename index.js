@@ -6,7 +6,7 @@
 "use strict";
 const axios = require('axios');
 const isError = require('is-error');
-
+const ddSite = process.env.DD_SITE || 'datadoghq.com';
 /**
  * @class DataDogEvents
  */
@@ -60,7 +60,7 @@ class DataDogEvents {
         return new Promise((resolve, reject) => {
             axios.request({
                 method: 'post',
-                url: 'https://app.datadoghq.com/api/v1/events',
+                url: `https://app.${ddSite}/api/v1/events`,
                 params: {
                     api_key: this.options.apiKey
                 },
