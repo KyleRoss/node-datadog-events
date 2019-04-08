@@ -20,6 +20,7 @@ class DataDogEvents {
     constructor(options = {}) {
         this.options = Object.assign({
             apiKey: process.env.DATADOG_API_KEY || null,
+            domain: process.env.DATADOG_DOMAIN || 'datadoghq.com',
             titlePrefix: null,
             bodyPrefix: null,
             bodyPostfix: null,
@@ -60,7 +61,7 @@ class DataDogEvents {
         return new Promise((resolve, reject) => {
             axios.request({
                 method: 'post',
-                url: 'https://app.datadoghq.com/api/v1/events',
+                url: `https://app.${this.options.domain}/api/v1/events`,
                 params: {
                     api_key: this.options.apiKey
                 },
