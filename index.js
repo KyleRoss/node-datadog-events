@@ -69,15 +69,16 @@ class DataDogEvents {
             }).then(resp => {
                 resolve(resp.data);
             }).catch(err => {
-                let status = err.response.status;
+                if(err.response) {
+                    let status = err.response.status;
                 
-                if(status === 403) {
-                    err.message = 'Invalid API Key provided';
-                } else {
-                    let resp = err.response.data;
-                    if(resp.errors) err.message = resp.errors.join(', ');
+                    if(status === 403) {
+                        err.message = 'Invalid API Key provided';
+                    } else {
+                        let resp = err.response.data;
+                        if(resp.errors) err.message = resp.errors.join(', ');
+                    }
                 }
-                
                 reject(err);
             });
         });
