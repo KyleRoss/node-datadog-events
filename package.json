@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/KyleRoss/node-datadog-events#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "got": "^11.5.2",
     "is-error": "^2.2.1"
   },
   "devDependencies": {
