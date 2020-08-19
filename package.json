@@ -1,14 +1,15 @@
 {
   "name": "datadog-events",
-  "version": "1.1.0",
+  "version": "0.0.0-development",
   "description": "Send events to DataDog *without* DogStatsD or StatsD",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha test.js -s 500 -t 5000"
+    "test": "./node_modules/.bin/mocha test.js -s 500 -t 5000",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KyleRoss/node-datadog-events.git"
+    "url": "https://github.com/KyleRoss/node-datadog-events.git"
   },
   "keywords": [
     "datadog",
@@ -30,7 +31,13 @@
     "is-error": "^2.2.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "chai": "^4.1.2",
+    "husky": "^4.2.5",
     "mocha": "^8.1.1",
+    "semantic-release": "^17.1.1"
   }
 }
