@@ -1,7 +1,7 @@
 {
   "name": "datadog-events",
   "version": "0.0.0-development",
-  "description": "Send events to DataDog *without* DogStatsD or StatsD",
+  "description": "Send events to DataDog **without** DogStatsD or StatsD, using the standard DataDog API.",
   "main": "index.js",
   "scripts": {
     "test": "DATADOG_API_KEY= ava ./tests/*.test.js",
