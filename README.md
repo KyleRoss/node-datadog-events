@@ -2,152 +2,222 @@
 
 [![npm](https://img.shields.io/npm/v/datadog-events.svg?style=for-the-badge)](https://www.npmjs.com/package/datadog-events) [![npm](https://img.shields.io/npm/dt/datadog-events.svg?style=for-the-badge)](https://www.npmjs.com/package/datadog-events) [![David](https://img.shields.io/david/KyleRoss/node-datadog-events.svg?style=for-the-badge)](https://david-dm.org/KyleRoss/node-datadog-events) [![Travis](https://img.shields.io/travis/KyleRoss/node-datadog-events/master.svg?style=for-the-badge)](https://travis-ci.org/KyleRoss/node-datadog-events) [![license](https://img.shields.io/github/license/KyleRoss/node-datadog-events.svg?style=for-the-badge)](https://github.com/KyleRoss/node-datadog-events/blob/master/LICENSE) [![Beerpay](https://img.shields.io/beerpay/KyleRoss/node-datadog-events.svg?style=for-the-badge)](https://beerpay.io/KyleRoss/node-datadog-events)
 
+Send events to [DataDog](https://www.datadoghq.com/) **without** DogStatsD or StatsD, using the standard DataDog API.
 
-Send events to DataDog **without** DogStatsD or StatsD, using the standard DataDog API. Supports Node 6+.
+[DataDog](https://www.datadoghq.com/) is a powerful platform for monitoring your applications with one of the features being events that you can track and alert on. Typically DataDog utilizes `DogStatsD` or `StatsD` to send event data to the platform but they also provide methods within their API. This package was written as a means to quickly send events via the DataDog API without the need of the extra dependencies that cannot be utilized in certain environments such as serverless.
 
-## Getting Started
-### Install
-```sh
+This package officially supports Node 10+, although it should work with Node 8+.
+
+## Install
+Requires Node 8+ and NPM.
+
+Install with NPM:
+```
 npm install datadog-events --save
 ```
 
-### Use
-By default, a function is exported that will create a new instance of `DataDogEvents` for you. You may either use the default or create your own instance of the class:
-
-#### Default Exports
+## Usage
 ```js
-const ddEvents = require('datadog-events')({ /* options */ });
+const ddEvents = require('datadog-events')({
+  // options...
+});
 
 async function doSomething() {
-    // ...
-    
-    if(err) {
-        await ddEvents.error('Some error!', 'These are some details');
-    }
+  // ...
+
+  if(err) {
+    await ddEvents.error('There was an error!', 'These are the details');
+  }
 }
 ```
 
-#### Create Instance
+## API
+<a name="module_datadog-events"></a>
+
+### datadog-events
+
+* [datadog-events](#module_datadog-events)
+    * [ddEvents](#exp_module_datadog-events--ddEvents) ⇒ [<code>DataDogEvents</code>](#DataDogEvents) ⏏
+        * [.DataDogEvents](#module_datadog-events--ddEvents.DataDogEvents) : [<code>DataDogEvents</code>](#DataDogEvents)
+
+<a name="exp_module_datadog-events--ddEvents"></a>
+
+#### ddEvents ⇒ [<code>DataDogEvents</code>](#DataDogEvents) ⏏
+Creates a new instance of the [DataDogEvents](#datadogevents) class without the `new` keyword.
+
+**Kind**: Exported DataDogEvents Instance  
+**Returns**: [<code>DataDogEvents</code>](#DataDogEvents) - New instance of DataDogEvents class.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Options to pass to DataDogEvents. |
+
+**Example**  
 ```js
-const DataDogEvents = require('datadog-events').DataDogEvents;
-const ddEvents = new DataDogEvents({ /* options */ });
+const ddEvents = require('datadog-events')({
+  // options...
+});
 ```
+<a name="module_datadog-events--ddEvents.DataDogEvents"></a>
 
-## API Documentation
-### Options
+##### ddEvents.DataDogEvents : [<code>DataDogEvents</code>](#DataDogEvents)
+Access to the uninstantiated DataDogEvents class.
 
-#### Global DataDogEvents Options
-The following options are available when creating a new instance of `DataDogEvents` or when calling the default export function.
-
-| Option         | Type          | Required? | Description                                                                                                             | Default                       |
-|----------------|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------|-------------------------------|
-| apiKey         | String        | Yes       | Your DataDog API key. This may be populated using environment variable `DATADOG_API_KEY`.                               | `process.env.DATADOG_API_KEY` |
-| domain         | String        | No        | DataDog domain to use for the API. Useful for switching to the EU version (ex. `datadoghq.eu`).                         | `"datadoghq.com"`             |
-| titlePrefix    | String        | No        | Optional text to prefix all event titles with.                                                                          | `null`                        |
-| bodyPrefix     | String        | No        | Optional text to prefix all event bodies with.                                                                          | `null`                        |
-| bodyPostfix    | String        | No        | Optional test to postfix all event bodies with.                                                                         | `null`                        |
-| priority       | String        | No        | Priority for all events. Can be either `normal` or `low`.                                                               | `"normal"`                    |
-| host           | String        | No        | Optional host name to attach to all events.                                                                             | `null`                        |
-| tags           | Array[String] | No        | Optional tags to attach to all events.                                                                                  | `[]`                          |
-| aggregationKey | String        | No        | Optional key that will allow DataDog to aggregate all events under.                                                     | `null`                        |
-| sourceType     | String        | No        | Optional source type name. See [here](https://docs.datadoghq.com/integrations/faq/list-of-api-source-attribute-value/). | `null`                        |
-| markdown       | Boolean       | No        | Format all event bodies as markdown.                                                                                    | `true`                        |
-
-#### Event Options
-The following options may be provided when sending events with any of the methods documented below. Most of these options will override the global options listed above and are all optional.
-
-| Option         | Type          | Description                                                                                                             |
-| -------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| date           | Date          | Date object of the event. By default, it will be the current date/time.                                                 |
-| priority       | String        | Priority for the event. Can be either `normal` or `low`.                                                                |
-| host           | String        | Optional host name to attach to the event.                                                                              |
-| tags           | Array[String] | Tags to append to the event. Tags provided will be appended to the global `options.tags`.                               |
-| aggregationKey | String        | Optional key that will allow DataDog to aggregate all events under.                                                     |
-| sourceType     | String        | Optional source type name. See [here](https://docs.datadoghq.com/integrations/faq/list-of-api-source-attribute-value/). |
-| markdown       | Boolean       | Format the body as markdown.                                                                                            |
-
-### DataDogEvents Class
-The main class for `datadog-events`.
-
-#### constructor([options={}])
-The constructor for `DataDogEvents`.
-
-| Argument | Type    | Required? | Description                                                     |
-| -------- | ------- | --------- | --------------------------------------------------------------- |
-| options  | ?Object | No        | [Global options](#global-datadogevents-options) for the class.  |
-
-##### Example
+**Kind**: static DataDogEvents Class of [<code>ddEvents</code>](#exp_module_datadog-events--ddEvents)  
+**Example**  
 ```js
-// Shortcut
-const ddEvents = require('datadog-events')({ /* options */ });
-
-// Create your own instance
-const DataDogEvents = require('datadog-events').DataDogEvents;
-const ddEvents = new DataDogEvents({ /* options */ });
+const { DataDogEvents } = require('datadog-events');
+const ddEvents = new DataDogEvents({
+  // options...
+});
 ```
+<a name="DataDogEvents"></a>
 
-###### Returns - _DataDogEvents_
-> Returns instance of DataDogEvents.
+### DataDogEvents
+**Kind**: global class  
 
-### Methods
+* [DataDogEvents](#DataDogEvents)
+    * [new DataDogEvents([options])](#new_DataDogEvents_new)
+    * [dataDogEvents.options](#DataDogEvents+options)
+    * [dataDogEvents.&lt;success|info|warning|error&gt;(title, body, [options])](#DataDogEvents+&lt;success|info|warning|error&gt;) ⇒ [<code>Promise.&lt;DataDogResponse&gt;</code>](#DataDogResponse)
+    * [dataDogEvents.sendEvent(type, title, body, [options])](#DataDogEvents+sendEvent) ⇒ [<code>Promise.&lt;DataDogResponse&gt;</code>](#DataDogResponse)
 
-#### ddEvents.<error|warning|info|success>(title, body[, options={}])
-Shortcut methods for `ddEvents.sendEvent()`. Will send an event with the given type of the method.
+<a name="new_DataDogEvents_new"></a>
 
-| Argument | Type                | Required? | Description                                                                                                                                                       |
-| -------- | ------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| title    | String              | Yes       | Title for the event.                                                                                                                                              |
-| body     | String|Object|Error | Yes       | The body of the event. If `options.markdown` is `true`, it will be formatted as markdown. If an Object or Error is passed in, it will be formatted into markdown. |
-| options  | ?Object             | No        | Optional [event options](#event-options).                                                                                                                         |
+#### new DataDogEvents([options])
+Creates an instance of DataDogEvents.
 
-##### Example
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>Object</code> | <code>{}</code> | Options to configure DataDogEvents. See [DataDogEvents.options](#DataDogEvents+options). |
+
+**Example**  
 ```js
-ddEvents.error('There was an error!', error)
-    .then(response => console.log(response));
-
-await ddEvents.success('Completed a process!', '**The process was completed!**');
+const { DataDogEvents } = require('datadog-events');
+const ddEvents = new DataDogEvents({
+  // options...
+});
 ```
-###### Returns - _Promise[Object]_
-> Promise resolves with object returned from the DataDog API containing `status` and `event` keys. Rejects with error if failed to send.
+<a name="DataDogEvents+options"></a>
 
-#### ddEvents.sendEvent(type, title, body[, options={}])
+#### dataDogEvents.options
+Configuration options for DataDogEvents. Either set these options when creating a new instance or they may be changed
+after the instance is created using `ddEvents.options.OPTION = VALUE`.
+
+**Kind**: instance property of [<code>DataDogEvents</code>](#DataDogEvents)  
+**Properties**
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| apiKey | <code>String</code> |  | Your DataDog API key. May be set using the environment variable `DATADOG_API_KEY`. |
+| [domain] | <code>String</code> | <code>&#x27;datadoghq.com&#x27;</code> | The DataDog API domain to use. Allows switching for sandbox or UK APIs. May be set using the environment variable `DATADOG_DOMAIN`. |
+| [titlePrefix] | <code>String</code> |  | Optional text to prefix all event titles with. |
+| [bodyPrefix] | <code>String</code> |  | Optional text to prefix all event bodies with. |
+| [bodyPostfix] | <code>String</code> |  | Optional text to append to all event bodies. |
+| [priority] | <code>String</code> | <code>&#x27;normal&#x27;</code> | Priority for all events. Can be either `normal` or `low`. |
+| [host] | <code>String</code> |  | Optional hostname to attache to all events. |
+| [tags] | <code>Array.&lt;String&gt;</code> | <code>[]</code> | Optional array of string tags to attach to all events. |
+| [aggregationKey] | <code>String</code> |  | Optional key that will allow DataDog to aggregate all events under. |
+| [sourceName] | <code>String</code> |  | Optional source type name. See [here](https://docs.datadoghq.com/integrations/faq/list-of-api-source-attribute-value/). |
+| [markdown] | <code>Boolean</code> | <code>true</code> | Format all event bodies as Markdown. |
+
+<a name="DataDogEvents+&lt;success|info|warning|error&gt;"></a>
+
+#### dataDogEvents.&lt;success\|info\|warning\|error&gt;(title, body, [options]) ⇒ [<code>Promise.&lt;DataDogResponse&gt;</code>](#DataDogResponse)
+Shortcut methods for `ddEvents.sendEvent()`.
+
+**Kind**: instance method of [<code>DataDogEvents</code>](#DataDogEvents)  
+**Returns**: [<code>Promise.&lt;DataDogResponse&gt;</code>](#DataDogResponse) - Response from the DataDog API.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| title | <code>String</code> |  | The title of the event. |
+| body | <code>String</code> |  | The body of the event which may contain markdown. |
+| [options] | [<code>EventOptions</code>](#EventOptions) | <code>{}</code> | Additional options to configure the event. |
+
+**Example**  
+```js
+// Send info event
+await ddEvents.info('Title', 'This is an informational event');
+
+// Send error event
+await ddEvents.error('Some error!', 'There was an error');
+
+// Send warning event
+await ddEvents.warning('Something happened', 'This is a warning event');
+
+// Send success event
+await ddEvents.success('Success!', 'Process completed successfully!');
+```
+<a name="DataDogEvents+sendEvent"></a>
+
+#### dataDogEvents.sendEvent(type, title, body, [options]) ⇒ [<code>Promise.&lt;DataDogResponse&gt;</code>](#DataDogResponse)
 Sends an event to DataDog.
 
-| Argument | Type                | Required? | Description                                                                                                                                                       |
-| -------- | ------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type     | String              | Yes       | Alert type of the event. Can be `error`, `warning`, `info` or `success`.                                                                                          |
-| title    | String              | Yes       | Title for the event.                                                                                                                                              |
-| body     | String|Object|Error | Yes       | The body of the event. If `options.markdown` is `true`, it will be formatted as markdown. If an Object or Error is passed in, it will be formatted into markdown. |
-| options  | ?Object             | No        | Optional [event options](#event-options).                                                                                                                         |
+**Kind**: instance method of [<code>DataDogEvents</code>](#DataDogEvents)  
+**Returns**: [<code>Promise.&lt;DataDogResponse&gt;</code>](#DataDogResponse) - Response from the DataDog API.  
 
-##### Example
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| type | <code>String</code> |  | The alert type to send (can be `error`, `warning`, `info` or `success`). |
+| title | <code>String</code> |  | The title of the event. |
+| body | <code>String</code> |  | The body of the event which may contain markdown. |
+| [options] | [<code>EventOptions</code>](#EventOptions) | <code>{}</code> | Additional options to configure the event. |
+
+**Example**  
 ```js
-ddEvents.sendEvent('warning', 'Something happened', '**Warning:** Something crazy happened')
-    .then(resp => console.log(resp));
+// Send an event
+await ddEvents.sendEvent('success', 'Completed Process', 'The process completed successfully!');
 
-await ddEvents.sendEvent('info', 'Results from my process', resultsObject);
+// Send an error
+const error = new Error('Something bad happened!');
+await ddEvents.sendEvent('error', 'There was an error!', error);
+
+// Send an object
+const myObj = { hello: 'world' };
+await ddEvents.sendEvent('info', 'Process Results', myObj);
+
+// Send event with markdown
+await ddEvents.sendEvent('warning, 'Something happened', 'There was an issue with **myserver**: `Unable to communicate with endpoint`');
 ```
+<a name="EventOptions"></a>
 
-###### Returns - _Promise[Object]_
-> Promise resolves with object returned from the DataDog API containing `status` and `event` keys. Rejects with error if failed to send.
+### EventOptions : <code>Object</code>
+**Kind**: global typedef  
+**Properties**
 
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| [date] | <code>Date</code> | <code>new Date()</code> | Date object for the event. By default, it will be the current date/time. |
+| [priority] | <code>String</code> | <code>&#x27;normal&#x27;</code> | Priority for the event. Can be either `normal` or `low`. |
+| [host] | <code>String</code> |  | Optional hostname to attach to the event. |
+| [tags] | <code>Array.&lt;String&gt;</code> | <code>[]</code> | Array of string tags to append to the event. Tags provided will be concatenated with the global `options.tags`. |
+| [aggregationKey] | <code>String</code> |  | Optional key that will allow DataDog to aggregate all events under. |
+| [sourceType] | <code>String</code> |  | Optional source type name. See [here](https://docs.datadoghq.com/integrations/faq/list-of-api-source-attribute-value/). |
+| [markdown] | <code>Boolean</code> | <code>true</code> | Format the body as Markdown. |
 
-### Properties
-#### ddEvents.options - _Object_
-The [global options](#global-datadogevents-options) for the current instance of DataDogEvents. You may change any of the options at any time.
+<a name="DataDogResponse"></a>
 
-### Environment Variables
-| Environment Variable | Type   | Option           | Description                                 |
-|----------------------|--------|------------------|---------------------------------------------|
-| DATADOG_API_KEY      | String | `options.apiKey` | Sets the API Key for DataDog automatically. |
-| DATADOG_DOMAIN       | String | `options.domain` | Sets the domain for the DataDog API.        |
+### DataDogResponse : <code>Object</code>
+**Kind**: global typedef  
+**Properties**
 
-## Tests
-Tests run automatically in Travis, although you may run them on your own machine. If you do, you must have your own DataDog account and API key. Make sure you add the `DATADOG_API_KEY` environment variable before running the tests.
+| Name | Type | Description |
+| --- | --- | --- |
+| aggregation_key | <code>String</code> | The aggregation key for the event. |
+| alert_type | <code>String</code> | The type of the event. One of `error, warning, info, success`. |
+| date_happened | <code>Number</code> | POSIX timestamp of the event. |
+| host | <code>String</code> | The hostname provided with the event. |
+| priority | <code>String</code> | The priority of the event. One of `normal, low`. |
+| source_type_name | <code>String</code> | The provided source type. |
+| tags | <code>Array.&lt;String&gt;</code> | Array of string tags attached to the event. |
+| text | <code>String</code> | The body of the event. |
+| title | <code>String</code> | The event title. |
 
-```sh
-DATADOG_API_KEY=MY_API_KEY npm run test
-```
+## Contributing
+Feel free to open an issue or submit PRs! This project uses [Semantic Release](https://github.com/semantic-release/semantic-release) for automating releases. All commits must follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard in order for releases to be created.
 
 ## License
-MIT License. See [License](https://github.com/KyleRoss/node-datadog-events/blob/master/LICENSE) in the repository.
+[MIT](LICENSE) © Kyle Ross
+
