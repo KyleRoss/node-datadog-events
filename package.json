@@ -11,6 +11,11 @@
     "docs": "jsdoc2md > README.md",
     "semantic-release": "semantic-release"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "jsdoc2md": {
     "template": "build/README.hbs",
     "files": [
