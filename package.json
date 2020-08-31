@@ -8,7 +8,24 @@
     "test-coverage": "nyc --reporter text npm test",
     "test-coverage-html": "nyc --reporter html npm test",
     "coveralls": "nyc --reporter=lcovonly npm test -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "docs": "jsdoc2md > README.md",
     "semantic-release": "semantic-release"
+  },
+  "jsdoc2md": {
+    "template": "build/README.hbs",
+    "files": [
+      "./index.js",
+      "./lib/*.js"
+    ],
+    "partial": [
+      "./build/sig-name.hbs",
+      "./build/sig-link-parent.hbs",
+      "./build/sig-link.hbs"
+    ],
+    "module-index-format": "none",
+    "global-index-format": "grouped",
+    "member-index-format": "list",
+    "heading-depth": 3
   },
   "repository": {
     "type": "git",
@@ -41,6 +58,7 @@
     "ava": "^3.12.1",
     "coveralls": "^3.1.0",
     "husky": "^4.2.5",
+    "jsdoc-to-markdown": "^6.0.1",
     "nock": "^13.0.4",
     "nyc": "^15.1.0",
     "semantic-release": "^17.1.1"

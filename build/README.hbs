@@ -1,0 +1,43 @@
+# datadog-events
+
+[![npm](https://img.shields.io/npm/v/datadog-events.svg?style=for-the-badge)](https://www.npmjs.com/package/datadog-events) [![npm](https://img.shields.io/npm/dt/datadog-events.svg?style=for-the-badge)](https://www.npmjs.com/package/datadog-events) [![David](https://img.shields.io/david/KyleRoss/node-datadog-events.svg?style=for-the-badge)](https://david-dm.org/KyleRoss/node-datadog-events) [![Travis](https://img.shields.io/travis/KyleRoss/node-datadog-events/master.svg?style=for-the-badge)](https://travis-ci.org/KyleRoss/node-datadog-events) [![license](https://img.shields.io/github/license/KyleRoss/node-datadog-events.svg?style=for-the-badge)](https://github.com/KyleRoss/node-datadog-events/blob/master/LICENSE) [![Beerpay](https://img.shields.io/beerpay/KyleRoss/node-datadog-events.svg?style=for-the-badge)](https://beerpay.io/KyleRoss/node-datadog-events)
+
+Send events to [DataDog](https://www.datadoghq.com/) **without** DogStatsD or StatsD, using the standard DataDog API.
+
+[DataDog](https://www.datadoghq.com/) is a powerful platform for monitoring your applications with one of the features being events that you can track and alert on. Typically DataDog utilizes `DogStatsD` or `StatsD` to send event data to the platform but they also provide methods within their API. This package was written as a means to quickly send events via the DataDog API without the need of the extra dependencies that cannot be utilized in certain environments such as serverless.
+
+This package officially supports Node 10+, although it should work with Node 8+.
+
+## Install
+Requires Node 8+ and NPM.
+
+Install with NPM:
+```
+npm install datadog-events --save
+```
+
+## Usage
+```js
+const ddEvents = require('datadog-events')({
+  // options...
+});
+
+async function doSomething() {
+  // ...
+
+  if(err) {
+    await ddEvents.error('There was an error!', 'These are the details');
+  }
+}
+```
+
+## API
+{{#orphans ~}}
+{{>docs~}}
+{{/orphans~}}
+
+## Contributing
+Feel free to open an issue or submit PRs! This project uses [Semantic Release](https://github.com/semantic-release/semantic-release) for automating releases. All commits must follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard in order for releases to be created.
+
+## License
+[MIT](LICENSE) © Kyle Ross
